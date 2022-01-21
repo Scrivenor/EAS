@@ -9,23 +9,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 20px;
+}
+
+.userControls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .gridContainer {
     display: grid;
-    /* grid-template-columns: repeat( 16, 1fr );
-    grid-template-rows: repeat( 16, 1fr ); */
     width: 500px;
     height: 500px;
     border: solid;
-}
-
-.gridRow {
-
-}
-
-.gridBox {
-
 }
 
 #gridContainer {

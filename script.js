@@ -1,3 +1,6 @@
+function getRandomColor() {
+    return ("#" + ((1<<24)*Math.random() | 0).toString(16))
+}
 
 function addSquare( sizeOfSquare ) {
     const newSquare = document.createElement( "div" );
@@ -5,8 +8,9 @@ function addSquare( sizeOfSquare ) {
     newSquare.style.height = `${sizeOfSquare}`;
     newSquare.style.width = `${sizeOfSquare}`;
     newSquare.addEventListener( "mouseenter", function( event ) {
-        event.target.style.backgroundColor = "purple";  } );
-    
+        // event.target.style.backgroundColor = "purple";  } );
+        event.target.style.backgroundColor = getRandomColor();  } );
+ 
     document.getElementById( "gridContainer" ).append( newSquare );
 }
 
@@ -41,5 +45,5 @@ function setGridSize() {
     drawTheBox( gridSize );
 }
 
-setGridSize();
+setGridSize(); // set the initil grid
 
