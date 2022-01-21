@@ -41,9 +41,13 @@ function clearSketch() {
 
 function setGridSize() {
     clearSketch();
-    var gridSize = window.prompt( "Enter grid size:", "4")
+    var gridSize = window.prompt( "Enter grid size (128 or less please):", "4")
+    if( gridSize > 128 ) {
+        window.alert("That number is too large, reducing to 128.")
+        gridSize = 128;
+    }
     drawTheBox( gridSize );
 }
 
-setGridSize(); // set the initil grid
+setGridSize(); // set the initial grid
 
