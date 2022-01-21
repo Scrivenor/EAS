@@ -24,14 +24,6 @@ function drawTheBox ( howBig ) {
     }
 }
 
-function changeColor() {
-
-}
-
-function reloadPage() {
-    window.location.reload( true );
-}
-
 function clearSketch() {
     const squares = document.getElementsByClassName( "square" );
     for( i=0; i<squares.length; i++ ) {
@@ -41,11 +33,13 @@ function clearSketch() {
 
 function setGridSize() {
     clearSketch();
-    var gridSize = window.prompt( "Enter grid size (128 or less please):", "4")
-    if( gridSize > 128 ) {
-        window.alert("That number is too large, reducing to 128.")
-        gridSize = 128;
+    let gridSize = parseInt(window.prompt( "Enter grid size (128 or less please):", "4"))
+    
+    while( isNaN( gridSize ) || ( gridSize >128 ) || ( gridSize < 0 ) ) { // verify we have an integer value of 128 or less
+        window.alert( "Please enter a positive integer value 128 or less please.");
+        gridSize = parseInt(window.prompt( "Enter grid size (128 or less please):", "4"))
     }
+
     drawTheBox( gridSize );
 }
 
