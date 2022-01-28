@@ -1,11 +1,25 @@
-function setColorType ( myType ) {
-    console.log( myType );
+
+
+function getRandomColor( event ) {
+    event.target.style.backgroundColor = "#" + ((1<<24)*Math.random() | 0).toString(16);
 }
 
-function getRandomColor() {
-    return ("#" + ((1<<24)*Math.random() | 0).toString(16));
+
+function makePurple( event ) {
+    event.target.style.backgroundColor = "purple";
 }
 
+
+function makeGreyer( event ) {
+    currentGrey = event.target.style.backgroundColor; // increasing grey
+    if( currentGrey == "" ) {
+        event.target.style.backgroundColor = "rgb(230,230,230)";
+    } else {
+        let currentValue = currentGrey.split( "," );
+        let newValue = currentValue[1] - 25; // darken it up
+        event.target.style.backgroundColor = `rgb(${newValue},${newValue},${newValue})`;
+    }
+}
 
 
 function addSquare( sizeOfSquare ) {
@@ -13,21 +27,9 @@ function addSquare( sizeOfSquare ) {
     newSquare.className = "square";
     newSquare.style.height = `${sizeOfSquare}`;
     newSquare.style.width = `${sizeOfSquare}`;
-    newSquare.addEventListener( "mouseenter", function( event ) {
-        // event.target.style.backgroundColor = "purple";  } ); // monchrome
-        // event.target.style.backgroundColor = getRandomColor();  } ); // random RGB
 
-        currentGrey = event.target.style.backgroundColor; // increasing grey
-        if( currentGrey == "" ) {
-            event.target.style.backgroundColor = "rgb(230,230,230)";
-        } else {
-            let currentValue = currentGrey.split( "," );
-            let newValue = currentValue[1] - 25;
-            console.log( newValue );
-            event.target.style.backgroundColor = `rgb(${newValue},${newValue},${newValue})`;
-        }
-      } );
- 
+    newSquare.addEventListener( "mouseenter", getRandomColor ); // start the page with rainbow
+
     document.getElementById( "gridContainer" ).append( newSquare );
 }
 
@@ -41,12 +43,14 @@ function drawTheBox ( howBig ) {
     }
 }
 
+
 function clearSketch() {
     const squares = document.getElementsByClassName( "square" );
     for( i=0; i<squares.length; i++ ) {
         squares[i].style.backgroundColor = "rgb(255,255,255)";
     }
 }
+
 
 function setGridSize() {
     clearSketch();
@@ -56,19 +60,38 @@ function setGridSize() {
         window.alert( "Please enter a positive integer value 128 or less please.");
         gridSize = parseInt(window.prompt( "Enter grid size (128 or less please):", "4"))
     }
-
     drawTheBox( gridSize );
 }
 
-function changeDrawType( ) {
-    // get curent grid size
-    // 
+function purpleButton() {
+    const squares = document.getElementsByClassName( "square" );
+    for( i=0; i<squares.length; i++ ) {
+        squares[i].style.backgroundColor = "rgb(255,255,255)";
+        squares[i].removeEventListener( "mouseenter", makeGreyer );
+        squares[i].removeEventListener( "mouseenter", getRandomColor );
+        squares[i].addEventListener( "mouseenter", makePurple );
+    }
+}
+
+function greyButton() {
+    const squares = document.getElementsByClassName( "square" );
+    for( i=0; i<squares.length; i++ ) {
+        squares[i].style.backgroundColor = "rgb(255,255,255)";
+        squares[i].removeEventListener( "mouseenter", makePurple );
+        squares[i].removeEventListener( "mouseenter", getRandomColor );
+        squares[i].addEventListener( "mouseenter", makeGreyer );
+    }
+}
+
+function rainbowButton() {
+    const squares = document.getElementsByClassName( "square" );
+    for( i=0; i<squares.length; i++ ) {
+        squares[i].style.backgroundColor = "rgb(255,255,255)";
+        squares[i].removeEventListener( "mouseenter", makePurple );
+        squares[i].removeEventListener( "mouseenter", makeGreyer );
+        squares[i].addEventListener( "mouseenter", getRandomColor );
+    }
 }
 
 
-// document.getElementById( "rainbow" ).addEventListener( "click", setColorType( "rainbow" ));
-// document.getElementById( "mono" ).addEventListener( "click", setColorType( "mono" ));
-// document.getElementById( "mogrey" ).addEventListener( "click", setColorType( "mogrey" ));
-
 setGridSize(); // set the initial grid
-
